@@ -20,7 +20,8 @@ const AbortSteps = Symbol('[[AbortSteps]]');
 const ErrorSteps = Symbol('[[ErrorSteps]]');
 
 type WritableStreamDefaultControllerStartCallback = (controller: WritableStreamDefaultController) => void | PromiseLike<void>;
-type WritableStreamDefaultControllerWriteCallback<W> = (chunk: W, controller: WritableStreamDefaultController) => void | PromiseLike<void>;
+type WritableStreamDefaultControllerWriteCallback<W> = (chunk: W,
+  controller: WritableStreamDefaultController) => void | PromiseLike<void>;
 type WritableStreamDefaultControllerCloseCallback = () => void | PromiseLike<void>;
 type WritableStreamErrorCallback = (reason: any) => void | PromiseLike<void>;
 
@@ -935,7 +936,8 @@ function WritableStreamDefaultControllerClose(controller: WritableStreamDefaultC
   WritableStreamDefaultControllerAdvanceQueueIfNeeded(controller);
 }
 
-function WritableStreamDefaultControllerGetChunkSize<W>(controller: WritableStreamDefaultController<W>, chunk: W): number {
+function WritableStreamDefaultControllerGetChunkSize<W>(controller: WritableStreamDefaultController<W>,
+                                                        chunk: W): number {
   try {
     return controller._strategySizeAlgorithm(chunk);
   } catch (chunkSizeE) {
@@ -948,7 +950,9 @@ function WritableStreamDefaultControllerGetDesiredSize(controller: WritableStrea
   return controller._strategyHWM - controller._queueTotalSize;
 }
 
-function WritableStreamDefaultControllerWrite<W>(controller: WritableStreamDefaultController<W>, chunk: W, chunkSize: number) {
+function WritableStreamDefaultControllerWrite<W>(controller: WritableStreamDefaultController<W>,
+                                                 chunk: W,
+                                                 chunkSize: number) {
   const writeRecord = { chunk };
 
   try {
